@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户端主页</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #495057;
+            /* background-color: #006666; */
+        }
+
+        #header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        #navigation {
+            display: flex;
+            align-items: center;
+        }
+
+        .button {
+            margin-left: 15px;
+            padding: 10px 15px;
+            background-color: #2980b9;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+        #language-toggle {
+            margin-left: 1000px;
+            padding: 10px;
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #user-action {
+            margin-left: 15px;
+            padding: 10px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #search-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #search-box {
+            width: 400px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            display: inline-block;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        #search-btn {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        #user-info {
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+        }
+
+        #footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #main-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #management-section {
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 20px;
+            margin-right: 20px;
+            width: 30%;
+        }
+        
+        #profile-section {
+            flex-grow: 1;
+        }
+
+        #profile-section img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        #profile-section .info {
+            line-height: 2;
+        }
+
+        .edit-button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <img id="logo" src="your_logo.png" alt="Logo">
+        <div id="navigation">
+            <a class="button" onclick="jumpToAnalysisPage()">主题分析</a>
+            <a class="button" href="#">AI对话</a>
+            <button id="language-toggle">中/EN</button>
+            <button id="user-action" onclick="jumpToUserPage()">用户界面</button>
+        </div>
+    </div>
+
+    <br><br><br>
+    <div id="main-container">
+        <div id="management-section">
+            <h2>主页管理</h2>
+            <ul>
+                <li><a href="#" onclick="fetchUserData('personal-account')">个人账户</a></li>
+                <li><a href="#" onclick="fetchUserData('paper-collection')">论文收藏</a></li>
+            </ul>
+        </div>
+
+        <br><br>
+        <div id="profile-section">
+            <img src="avatar.jpg" alt="用户头像">
+            <div class="info" id="user-info">
+                <!-- 用户信息将在此更新 -->
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        © 2024 【盐式组】 All Rights Reserved.
+    </div>
+
+    <script>
+        function fetchUserData(section) {
+    
+            fetch(`/api/${section}`)
+                .then(response => response.json())
+                .then(data => {
+                    // 更新用户信息部分的内容
+                    const userInfoElement = document.getElementById('user-info');
+                    userInfoElement.innerHTML = `
+                        <p><strong>昵称：</strong> ${data.nickname}</p>
+                        <p><strong>年龄：</strong> ${data.age}</p>
+                        <p><strong>性别：</strong> ${data.gender}</p>
+                        <p><strong>手机号：</strong> ${data.phone}</p>
+                        <p><strong>生日：</strong> ${data.birthday}</p>
+                        <p><strong>学校：</strong> ${data.school}</p>
+                        <p><strong>年级：</strong> ${data.grade}</p>
+                        <!-- 其他信息可以继续添加 -->
+                    `;
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        }
+
+        function jumpToUserPage() {
+            // 点击用户界面按钮的逻辑
+            window.location.href = 'admin.html';
+        }
+        function jumpToAnalysisPage(){
+            window.location.href ='search_analysis.html'
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>成图分析</title>
+		<style type="text/css">
+			body {
+				margin: 0;
+				padding: 0;
+				background-image: linear-gradient(to right, #3498db, #fff);
+			}
+
+			a {
+				text-decoration: none;
+			}
+
+			.menu {
+				width: 230px;
+				height: 600px;
+				padding: 20px 0;
+				background-color: rgba(251, 247, 247, 0.5);
+				margin: 50px 0 0 50px;
+				position: relative;
+			}
+
+			.menu .item {
+				height: 54px;
+				/* border: 1px solid red; */
+				color: #fff;
+				font-size: 14px;
+				line-height: 54px;
+				padding-left: 30px;				
+				cursor: pointer;
+			}
+			.item a {
+						font-weight: bold;
+					}
+			.menu .item:hover {
+				background-color: #ff6700;				
+			}
+
+			/* 右侧二级菜单 */
+			.menu .item .nav {
+				min-width: 900px;
+				height: 640px;
+				background-color: #fff;
+				border: 1px solid #666;
+				position: absolute;
+				top: 0;
+				left: 100%;
+				box-sizing: border-box;
+				/* 初始默认隐藏 */
+				display: none;
+			}
+			.nav {
+			display: flex;
+			justify-content: center; /* 水平居中 */
+			align-items: center; /* 垂直居中 */
+			height: 100vh; /* 可视窗口高度的百分之百，用于垂直居中 */
+			}
+
+			.nav img {
+			display: block; /* 使图像成为块级元素 */
+			margin: 0 auto; /* 左右居中 */
+			}
+
+
+			.item:hover .nav {
+				display: grid;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="menu">
+			<div class="item">Citespace视图介绍
+				<div class="nav">
+					<img src="image/citespacest.png" alt="" width="900">
+				</div>
+			</div>
+			<div class="item">Citespace聚类视图
+				<div class="nav">
+					<img src="image/jl.png" alt="" width="900">
+				</div>K
+			</div>
+			<div class="item">Citespace K聚类图
+				<div class="nav">
+					<img src="image/k.png" alt="" width="900">
+				</div>
+			</div>
+			<div class="item">Citespace T聚类图
+				<div class="nav">
+					<img src="image/t.png" alt="" width="900">
+				</div>
+			</div>
+
+			<div class="item">时间线视图
+				<div class="nav">
+					<img src="image/timeline.png" alt="" width="900">
+				</div>
+			</div>
+			<div class="item">VOSviewer视图介绍
+				<div class="nav">
+					<img src="image/VOSviewer.png" alt="" width="660">
+				</div>
+			</div>
+			
+			<div class="item">VOSviewer聚类视图
+				<div class="nav">
+					<img src="image/jl.png" alt="" width="900">
+				</div>
+			</div>
+			<div class="item">VOSviewer标签视图
+				<div class="nav">
+					<img src="image/tags.png" alt="" width="900">
+				</div>
+			</div>
+			<div class="item">VOSviewer密度视图
+				<div class="nav">
+					<img src="image/md.png" alt="" width="900">
+				</div>
+			</div>
+			
+			<div class="item">Aminer论文主题
+				<div class="nav">
+					<img src="image/title.png" alt="" width="800">
+				</div>
+			</div>
+			<div class="item">
+				<a href="index.html">返回主界面</a>
+			</div>
+		</div>
+	</body>
+</html>
+

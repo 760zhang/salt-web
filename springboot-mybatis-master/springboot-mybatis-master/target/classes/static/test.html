@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            /* display: flex; */
+            justify-content: space-between;
+        }
+
+        #header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        #navigation {
+            display: flex;
+            align-items: center;
+        }
+
+        .button {
+            margin-left: 15px;
+            padding: 10px 15px;
+            background-color: #2980b9;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+        #language-toggle {
+            margin-left: 1000px;
+            padding: 10px;
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #user-action {
+            margin-left: 15px;
+            padding: 10px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #left-section {
+            width: 50%;
+            padding: 20px;
+        }
+
+        #search-box {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            margin-left: 15px;
+            padding: 10px 15px;
+            background-color: #2980b9;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+        .button:active {
+            background-color: #8e44ad;
+        }
+
+        #results-section {
+            margin-top: 20px;
+        }
+
+        #jump-button {
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: auto;
+        }
+
+        #jump-button:hover {
+            background-color: #8e44ad;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        /* 设置每列的宽度 */
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 20%; /* 适当调整宽度百分比 */
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 15%; /* 适当调整宽度百分比 */
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 5%; /* 适当调整宽度百分比 */
+        }
+
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 5%; /* 适当调整宽度百分比 */
+        }
+
+        th:nth-child(5),
+        td:nth-child(5) {
+            width: 55%; /* 适当调整宽度百分比 */
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <img id="logo" src="your_logo.png" alt="Logo">
+        <div id="navigation">
+            <a class="button" onclick="jumpToAnalysisPage()">主题分析</a>
+            <a class="button" href="#">AI对话</a>
+            <button id="language-toggle">中/EN</button>
+            <!-- <button id="user-action" onclick="jumpToUserPage()">用户界面</button> -->
+            <br>
+        </div>
+    </div>
+
+    <div id="left-section">
+        <div id="search-section">
+            <br>
+            <input type="text" id="search-box" placeholder="输入搜索内容...">
+            <button class="button" onclick="search()">搜索</button>
+            <br>
+            <button class="button" onclick="search('年份')">年份</button>
+            <button class="button" onclick="search('引用量')">引用量</button>
+            <div id="results-section">
+                <!-- 搜索结果展示区域 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function search(category) {
+            // 获取搜索框内容
+            const searchBox = document.getElementById('search-box');
+            const searchTerm = searchBox.value;
+
+            // 发送请求到后端
+            fetch('/api/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ category, searchTerm })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 处理后端返回的数据
+                updateResults(data.results);
+            })
+            .catch(error => {
+                console.error('发生错误:', error);
+            });
+        }
+
+        function updateResults(results) {
+            // 更新搜索结果展示区域
+            const resultsSection = document.getElementById('results-section');
+            resultsSection.innerHTML = '';
+
+            // 创建表格
+            const table = document.createElement('table');
+
+            // 创建表头
+            const headerRow = document.createElement('tr');
+            ['题目', '作者', '引用量', '年份', '摘要'].forEach(column => {
+                const th = document.createElement('th');
+                th.textContent = column;
+                headerRow.appendChild(th);
+            });
+            table.appendChild(headerRow);
+
+            // 填充表格数据
+            results.forEach(result => {
+                const row = document.createElement('tr');
+                ['title', 'author', 'citationCount', 'year', 'abstract'].forEach(column => {
+                    const cell = document.createElement('td');
+                    cell.textContent = result[column];
+                    row.appendChild(cell);
+                });
+                table.appendChild(row);
+            });
+
+            // 将表格添加到页面
+            resultsSection.appendChild(table);
+        }
+
+        function jumpToAnotherPage() {
+            // 点击跳转按钮的逻辑
+            const jumpButton = document.getElementById('jump-button');
+            jumpButton.classList.add('clicked');
+
+            // 跳转到另一个页面
+            window.location.href = '/成图界面.html';
+        }
+        
+        function jumpToAnalysisPage(){
+            // 点击主题分析按钮的逻辑
+            window.location.href = '/search_analysis.html';
+        }
+
+        <script type="text/javascript" src="http://www.google.com/jsapi"></script >
+        <script type="text/javascript">
+            google.load("language", "1");
+            function initialize()
+            {
+                var text = document.getElementById("text").innerHTML;
+                google.language.detect(text, 
+                                    function(result)
+                                    {
+                if(!result.error && result.language)
+                {
+                    google.language.translate(text, result.language, "en", 
+                                            function(result)
+                                            {
+                    var translated = document.getElementById("translation");
+                    if(result.translation)
+                    {
+                        translated.innerHTML = result.translation;
+                    }
+                    });
+                }
+                });
+            }
+            google.setOnLoadCallback(initialize);
+        </script>
+    </script>
+</body>
+</html>

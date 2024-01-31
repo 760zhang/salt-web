@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jia.mapper.UserMapper">
+    <select id="queryUserList" resultType="com.jia.pojo.User">
+    select * from `t_user`
+ </select>
+
+    <select id="queryUserById" resultType="com.jia.pojo.User">
+    select * from t_user where id = #{id}
+ </select>
+
+    <update id="updateUser" parameterType="com.jia.pojo.User">
+    update t_user set  username = #{username},password=#{password} where id =   #{id}
+ </update>
+
+    <insert id="addUser" parameterType="com.jia.pojo.User">
+   insert into t_user(username,password) value (#{username},#{password})
+ </insert>
+
+    <delete id="deleteUser" parameterType="long">
+    delete from  t_user where id = #{id}
+ </delete>
+
+    <select id="findByName" resultType="com.jia.pojo.User">
+        select * from t_user where username = #{username}
+    </select>
+    <select id="findPswByName" resultType="java.lang.String">
+        select password from t_user where username = #{username}
+    </select>
+
+
+</mapper>

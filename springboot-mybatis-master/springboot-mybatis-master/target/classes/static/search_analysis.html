@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>功能端页面</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            /* display: flex; */
+            justify-content: space-between;
+        }
+
+        #header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        #navigation {
+            display: flex;
+            align-items: center;
+        }
+
+        .button {
+            margin-left: 15px;
+            padding: 10px 15px;
+            background-color: #2980b9;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+        #language-toggle {
+            margin-left: 1000px;
+            padding: 10px;
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #user-action {
+            margin-left: 15px;
+            padding: 10px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #left-section {
+            width: 50%;
+            padding: 20px;
+        }
+
+        #search-box {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            margin-left: 15px;
+            padding: 10px 15px;
+            background-color: #2980b9;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+        .button:active {
+            background-color: #8e44ad;
+        }
+
+        #results-section {
+            margin-top: 20px;
+        }
+
+        #right-section {
+            width: 50%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: auto;
+            position: absolute;
+            top: 100px;
+            right: 10px;
+        }
+
+        .image-frame {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .image-frame img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .image-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #jump-button {
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: auto;
+        }
+
+        #jump-button:hover {
+            background-color: #8e44ad;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <img id="logo" src="image/Logo.png" alt="Logo">
+    <div id="navigation">
+        <a class="button" onclick="jumpToAnalysisPage()">主题分析</a>
+        <a class="button" href="#">AI对话</a>
+        <button id="language-toggle">中/EN</button>
+        <!-- <button id="user-action" onclick="jumpToUserPage()">用户界面</button> -->
+        <br>
+    </div>
+</div>
+
+<div id="left-section">
+    <div id="search-section">
+        <br>
+        <input type="text" id="search-box" placeholder="输入搜索内容...">
+        <button class="button" onclick="search('1')">搜索</button>
+        <br>
+        <button class="button" onclick="search('年份')">年份</button>
+        <button class="button" onclick="search('引用量')">引用量</button>
+        <div id="results-section">
+            <!-- 搜索结果展示区域 -->
+        </div>
+    </div>
+</div>
+
+<div id="right-section">
+    <div class="image-frame">
+        <div class="image-label">折线图</div>
+        <img src="line_chart_image.jpg" alt="折线图">
+    </div>
+
+    <div class="image-frame">
+        <div class="image-label">扇形图</div>
+        <img src="pie_chart_image.jpg" alt="扇形图">
+    </div>
+
+    <button id="jump-button" onclick="jumpToAnotherPage()">想要了解更多该期刊信息请点击跳转</button>
+</div>
+<script src="js/jquery.min.js"></script>
+<script type="application/javascript">
+    function search() {
+        alert("搜索")
+        // 获取搜索框内容
+        var searchTerm = $("#search-box").val();
+        $.ajax({
+            url: "/article/query?fn="+searchTerm,
+            type: "GET",
+            // dataType: "json",
+            contentType: "application/json",
+            success: function(response) {
+                console.log("请求成功，返回的数据：", response);
+                updateResults(response.data)
+            },
+            error: function(error) {
+                console.log("请求失败，错误信息：", error);
+            }
+        });
+        console.log(searchTerm)
+    }
+
+    function updateResults(results) {
+        // 更新搜索结果展示区域
+        const resultsSection = document.getElementById('results-section');
+        resultsSection.innerHTML = results;
+
+
+
+
+        // 将搜索结果展示在页面上
+        // results.forEach(result => {
+        //     const resultItem = document.createElement('div');
+        //     resultItem.textContent = result;
+        //     resultsSection.appendChild(resultItem);
+        // });
+
+    }
+
+    function jumpToAnotherPage() {
+        // 点击跳转按钮的逻辑
+        const jumpButton = document.getElementById('jump-button');
+        jumpButton.classList.add('clicked');
+
+        // 跳转到另一个页面
+        window.location.href = '/成图界面.html';
+    }
+
+    // function jumpToUserPage() {
+    //     // 点击用户界面按钮的逻辑
+    //     window.location.href = '/admin.html';
+    // }
+
+    function jumpToAnalysisPage() {
+        // 点击主题分析按钮的逻辑
+        window.location.href = '/search_analysis.html';
+    }
+</script>
+
+</body>
+</html>

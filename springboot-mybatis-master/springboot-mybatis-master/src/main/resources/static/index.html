@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主界面</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            /* background: #006666; */
+        }
+
+        #header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        #navigation {
+            display: flex;
+            align-items: center;
+        }
+
+        .button {
+            margin-left: 15px;
+            padding: 10px 15px;
+            background-color: #2980b9;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+        .button:active{
+            background-color: #8e44ad;
+        }
+
+        #language-toggle {
+            margin-left: 1000px;
+            padding: 10px;
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #user-action {
+            margin-left: 15px;
+            padding: 10px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #search-container {
+            /* width: 500px;
+            height: 300px; */
+            text-align: center;
+            /* margin-top: 50px; */
+            margin-top: 200px;
+            /* margin-left: 250px; */
+
+        }
+
+        #description{
+            font-size: 20px;
+        }
+
+        #search-box {
+            width: 400px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            display: inline-block;
+            box-sizing: border-box;
+            font-size: 20px;
+        }
+
+        #search-btn {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font—size: 18px;
+        }
+
+        #bottom-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            padding: 10px;
+        }
+
+        .oval-border {
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        #tutorial {
+            color: #555;
+        }
+
+        #feedback {
+            color: #555;
+        }
+
+        #bottom-right {
+            position: fixed;
+            bottom: 40px;
+            right: 0;
+            padding: 10px;
+            color: #555;
+        }
+
+        #document-count {
+            margin-right: 10px;
+        }
+
+        #footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <img id="logo" src="image/Logo.png" alt="Logo">
+        <div id="navigation">
+            <a class="button" onclick="jumpToAnalysisPage()">主题分析</a>
+            <a class="button" onclick="jumpToshoucangPage()">收藏界面</a>
+            <button id="language-toggle">中/EN</button>
+            <!-- <button id="user-action" onclick="jumpToUserPage()">用户界面</button> -->
+        </div>
+    </div>
+
+    <<div id="search-container">
+        <div id="description">
+            COMPUTER-AIDED CIVIL AND INFRASTRUCTURE ENGINEERING
+        </div>
+        <br>
+        <input type="text" id="search-box" placeholder="在这里搜索...">
+        <button id="search-btn">搜索</button>
+    </div>
+
+
+    <div id="bottom-left">
+        <div class="oval-border" id="tutorial">使用教程</div>
+        <div class="oval-border" id="feedback">反馈</div>
+    </div>
+
+    <div id="bottom-right">
+        <span id="document-count">收录1000篇文献</span>
+        <br>
+        <span>在线人数: <span id="online-count">1</span>人</span>
+    </div>
+
+    <div id="footer">
+        © 2024 【盐式组】 All Rights Reserved.
+    </div>
+
+    <script>
+        // document.getElementById('user-action').addEventListener('click', function() {
+        //     // 添加用户操作逻辑
+        //     console.log('用户界面按钮点击');
+        // });
+
+        const searchButton = document.getElementById('search-btn');
+
+        searchButton.addEventListener('click', function() {
+            // 添加搜索按钮逻辑
+            const searchTerm = document.getElementById('search-box').value;
+            window.location.href = '/search_analysis.html';
+            // 发送搜索请求到后端
+            // fetch('/api/search', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({ searchTerm }),
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     // 处理后端返回的数据
+            //     console.log('搜索结果:', data);
+            //
+            //     // 在这里可以根据后端返回的数据执行相应的操作
+            //     // 例如跳转到搜索结果页面
+            //     window.location.href = '/search_analysis.html';
+            // })
+            // .catch(error => {
+            //     console.error('搜索出错:', error);
+            // });
+
+            // 按钮变色
+            searchButton.style.backgroundColor = '#8e44ad';
+        });
+
+        // 恢复按钮颜色
+        searchButton.addEventListener('mouseup', function() {
+            searchButton.style.backgroundColor = '#3498db';
+        });
+
+        // 模拟向后端发送请求获取用户信息
+        function fetchUserData() {
+            // 假设后端 API 路径为 '/api/user'
+            fetch('/api/user')
+                .then(response => response.json())
+                .then(data => {
+                    // 更新欢迎信息
+                    const welcomeMessage = document.getElementById('welcome-message');
+                    welcomeMessage.innerHTML = `欢迎，${data.username}！`;
+
+                    // 更新在线人数
+                    const onlineCount = document.getElementById('online-count');
+                    onlineCount.textContent = data.onlineCount;
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        }
+
+        // 页面加载时获取用户信息
+        fetchUserData();
+
+        // function jumpToUserPage() {
+        //     // 点击用户界面按钮的逻辑
+        //     window.location.href = 'admin.html';
+        // }
+        function jumpToAnalysisPage(){
+            window.location.href ='search_analysis.html'
+        }
+
+        function jumpToshoucangPage(){
+            window.location.href ='收藏界面.html'
+        }
+    </script>
+</body>
+</html>

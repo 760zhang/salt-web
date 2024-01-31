@@ -1,0 +1,11 @@
+com\jia\mapper\UserMapper.class
+com\jia\controller\UserController.class
+com\jia\controller\ArticleController.class
+com\jia\vo\ReponseBody.class
+com\jia\SpringbootMybatisApplication.class
+com\jia\mapper\ArticleMapper.class
+com\jia\config\MyWebAppConfigurer.class
+com\jia\uils\ToHtmlTableConverter.class
+com\jia\service\UserService.class
+com\jia\pojo\Article.class
+com\jia\pojo\User.class

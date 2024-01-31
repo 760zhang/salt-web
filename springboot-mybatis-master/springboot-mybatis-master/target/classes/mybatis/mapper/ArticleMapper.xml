@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jia.mapper.ArticleMapper">
+    <insert id="insert" parameterType="com.jia.pojo.Article">
+        INSERT INTO t_salt (TI, AU, TC, PY, AB)
+        VALUES (#{TI}, #{AU}, #{TC}, #{PY}, #{AB})
+    </insert>
+    <delete id="deleteByNo" parameterType="java.lang.Long">
+        DELETE FROM t_salt WHERE no = #{no}
+    </delete>
+    <update id="update" parameterType="com.jia.pojo.Article">
+        UPDATE t_salt
+        SET TI = #{TI}, AU = #{AU}, TC = #{TC}, PY = #{PY}, AB = #{AB}
+        WHERE no = #{no}
+    </update>
+    <select id="selectByNo" parameterType="java.lang.Long" resultType="com.jia.pojo.Article">
+        SELECT * FROM t_salt WHERE no = #{no}
+    </select>
+    <select id="selectAll" parameterType="com.jia.pojo.Article" resultType="com.jia.pojo.Article">
+        SELECT * FROM t_salt
+        <where>
+            <if test="TI != null  and TI != ''"> and TI like concat('%', #{TI}, '%')</if>
+        </where>
+        order by TC,PY
+    </select>
+
+
+</mapper>

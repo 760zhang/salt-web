@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <title>登录界面</title>
+    <style>
+        html,body{
+            height: 100%;
+        }
+        body{
+            background: #006666;
+        }
+        h1{
+            color: #FFF;
+            text-align: center;
+        }
+        .container{
+            margin: 100px auto;
+            width: 30%;
+        }
+        form{
+            background: #FFF;
+            height: 300px;
+            width: 100%;
+            border-radius: 10px;
+            position: relative;
+        }
+        label{
+            color: #000;
+            font-weight: bold;
+            font-size: 20px;
+            margin-left: 40px;
+        }
+        input{
+            text-align: left;
+            margin: 10px;
+        }
+        .input{
+            width: 80%;
+            height: 35px;
+            margin-left: 40px;
+        }
+        .checkbox{
+            margin-left: 30px;
+        }
+        a{
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .submit{
+            display: inline-block;
+            margin-top: 0;
+            margin-left:145px;
+            background: #000;
+            border: none;
+            color: #FFF;
+            height: 35px;
+            width: 100px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .left{
+            margin: 20px;
+        }
+        .right{
+            position: absolute;
+            right: 20px;
+        }
+    </style>
+</head>
+ 
+<body>
+    <div class="container">
+        <h1>用户登录</h1>
+        <form>
+            <br>
+            <label for="username">用户名</label><br>
+            <input type="text" name="username" id="username" class="input" value="" placeholder="用户名admin"><br>
+            <label for="password">密码</label><br>
+            <input type="password" name="" id="password" class="input" value="" placeholder="密码admin">
+            <div class="checkbox">
+                <input type="checkbox" name="">
+                <span>记住密码</span>
+            </div>
+            <button type="submit" class="submit">开始登录</button>
+            <br>
+            <a href="index.html" class="left">返回首页</a>
+            <a href="register.html" class="right">注册账号</a>
+        </form>
+    </div>
+    <script>
+
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var userName = document.getElementById("username").value;
+            var pwd = document.getElementById("password").value;
+
+            // 创建一个XMLHttpRequest对象
+            var xhr = new XMLHttpRequest();
+
+            // 指定请求的类型、URL以及是否异步
+            xhr.open("POST", "/login", true);
+
+            // 设置请求头
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            // 定义请求完成的处理函数
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    alert(xhr.responseText)
+                    // 服务器返回的数据
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.code ==200) {
+                        alert("登录成功");
+
+                        // 登录成功后跳转到主页面
+                        window.location.href = "/index.html"; // 替换 "/main-page" 为你的主页面路由
+                    } else {
+                        alert("用户名或密码不正确");
+                    }
+                }
+            };
+
+            // 构造请求参数
+            var data = JSON.stringify({ username: userName, password: pwd });
+
+            // 发送请求
+            xhr.send(data);
+        });
+    </script>
+    
+</body>
+ 
+</html>
